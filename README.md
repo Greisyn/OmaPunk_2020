@@ -3,6 +3,11 @@
 Corner-anchored Cyberpunk 2020 character sheet editor, in the style of
 `local.werewolf-sheet`.
 
+## Install
+```bash
+omarchy plugin add https://github.com/Greisyn/OmaPunk_2020.git --enable
+```
+
 - **Edit like the PDF**: identity header, 9 STATS (+auto-derived Run/Leap/
   Carry/Lift/Save/BTM), armor SP per location, wound boxes, role Special
   Ability, all CP2020 skills by stat (ATTR/BODY/COOL/EMPATHY/INT/REF/TECH)
