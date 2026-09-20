@@ -6,6 +6,7 @@ Corner-anchored Cyberpunk 2020 character sheet editor
 ```bash
 omarchy plugin add https://github.com/Greisyn/OmaPunk_2020.git --enable
 ```
+<img width="1068" height="949" alt="image" src="https://github.com/user-attachments/assets/25180c6c-3479-4e02-8063-a024dcd163e6" />
 
 - **Identity headers**:, 9 STATS (+auto-derived Run/Leap/
   Carry/Lift/Save/BTM), armor SP per location, wound boxes, role Special
