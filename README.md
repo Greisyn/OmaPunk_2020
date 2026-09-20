@@ -1,7 +1,6 @@
 # Cyberpunk Sheet — floating Omarchy plugin
 
-Corner-anchored Cyberpunk 2020 character sheet editor, in the style of
-`local.werewolf-sheet`.
+Corner-anchored Cyberpunk 2020 character sheet editor
 
 ## Install
 ```bash
