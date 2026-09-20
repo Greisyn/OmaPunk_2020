@@ -7,12 +7,12 @@ Corner-anchored Cyberpunk 2020 character sheet editor
 omarchy plugin add https://github.com/Greisyn/OmaPunk_2020.git --enable
 ```
 
-- **Edit like the PDF**: identity header, 9 STATS (+auto-derived Run/Leap/
+- **Identity headers**:, 9 STATS (+auto-derived Run/Leap/
   Carry/Lift/Save/BTM), armor SP per location, wound boxes, role Special
   Ability, all CP2020 skills by stat (ATTR/BODY/COOL/EMPATHY/INT/REF/TECH)
   plus named Language/Expert/Martial Art/Other skills, cybernetics with
   HL/cost totals, full Lifepath, gear, weapons, chipped skills.
-- **Export plain text for LLM roleplay**: CP2020 sections with the skill-hint
+- **Export plain text**: CP2020 sections with the skill-hint
   line (`STAT + Skill + 1d10`) and referee instructions.
 - **Floating + corner-anchored**: dwell the corner handle to reveal,
   leave to collapse, pin open, Esc closes. Corner (TL/TR/BL/BR) + size in settings.
