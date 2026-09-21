@@ -254,9 +254,19 @@ PanelWindow {
 
       // header: CyberTheme logo, tinted with the theme accent (MultiEffect
       // colorization — white source + alpha recolors cleanly per theme)
+      // Small full-color Cyber2020 mark sits left of the logo.
+      Image {
+        id: headerIcon
+        x: 18; y: 8; width: 64; height: 64
+        source: Qt.resolvedUrl("anchor-icon.png")
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+        mipmap: true
+        opacity: 0.95
+      }
       Image {
         id: logo
-        x: 18; y: 12; width: 210; height: 56
+        x: headerIcon.x + headerIcon.width + 8; y: 12; width: 210; height: 56
         source: Qt.resolvedUrl("logo.png")
         fillMode: Image.PreserveAspectFit
         smooth: true
