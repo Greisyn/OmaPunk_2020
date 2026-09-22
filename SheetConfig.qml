@@ -2,8 +2,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-// Anchor + card prefs, ported from local.werewolf-sheet/SheetConfig.qml
-// (anchor/motion only — no sheet output paths yet).
+// Anchor + card prefs: floating-square placement, card size, motion timing
+// and sheet output paths.
 // Persists to ~/.config/omarchy/local.cyberpunk-sheet.json
 Item {
   id: root

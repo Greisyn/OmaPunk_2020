@@ -173,6 +173,26 @@ function clampInt(v, lo, hi) {
     return Math.max(lo, Math.min(hi, n));
 }
 
+// Valid [lo, hi] range per numeric data key, mirroring the +/- limits in
+// SheetWindow.qml. Used by the service to clamp hand-edited JSON on load
+// so crafted files cannot inject out-of-range values into the UI/export.
+function limits() {
+    var lim = { specLevel: [0, 10] };
+    var groups = [statFields(), armorFields(), damageFields()];
+    var ranges = [[0, 10], [0, 30], [0, 4]];
+    for (var g = 0; g < groups.length; g++)
+        for (var i = 0; i < groups[g].length; i++)
+            lim[groups[g][i][0]] = ranges[g];
+    var sg = skillGroups();
+    for (var h = 0; h < sg.length; h++)
+        for (var k = 0; k < sg[h].items.length; k++)
+            lim[sg[h].items[k][0]] = [0, 10];
+    var ns = namedSkills();
+    for (var n = 0; n < ns.length; n++)
+        lim[ns[n].levelKey] = [0, 10];
+    return lim;
+}
+
 function btmFor(body) {
     var b = clampInt(body, 1, 15);
     if (b >= 11) return -5;
@@ -287,9 +307,6 @@ function renderText(d) {
     L.push("== LIFEPATH ==");
     var singles = ["style", "clothes", "hair", "affections", "ethnicity",
                    "lifepathLang"];
-    var tf = textFields();
-    var tl = {};
-    for (i = 0; i < tf.length; i++) tl[tf[i][0]] = tf[i][1];
     for (i = 0; i < singles.length; i++)
         L.push(tl[singles[i]] + ": " + (d[singles[i]] !== undefined ? d[singles[i]] : ""));
     var multis = ["familyBg", "motivations", "traits", "valuedPerson", "valueMost",

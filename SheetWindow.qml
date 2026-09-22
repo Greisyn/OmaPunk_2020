@@ -22,7 +22,6 @@ PanelWindow {
   readonly property bool freeMode: cfg.anchorMode === "free"
   readonly property bool atRight: cfg.corner === "topRight" || cfg.corner === "bottomRight"
   readonly property bool atBottom: cfg.corner === "bottomLeft" || cfg.corner === "bottomRight"
-  readonly property bool isTop: !atBottom
   readonly property real topClearance: 44 // keep clear of the top bar
   readonly property bool reducedMotion: cfg.reducedMotion
   property bool expanded: false
@@ -106,7 +105,6 @@ PanelWindow {
   function collapse() {
     if (cfg.keepOpen) return;
     expanded = false;
-    content.forceActiveFocus();
     stopDwell();
   }
   function toggle() { expanded ? collapse() : reveal(); }
@@ -154,6 +152,9 @@ PanelWindow {
   }
 
   onEngagedChanged: { if (engaged) closeTimer.stop(); else if (expanded) closeTimer.restart(); }
+  // Refresh the import path each time the card opens so it tracks the
+  // current output folder instead of going stale after settings edits.
+  onExpandedChanged: { if (expanded) importField.text = cfg.outputDir + "/"; }
 
   Timer { id: closeTimer; interval: cfg.closeDelay; onTriggered: { if (!root.engaged) root.collapse(); } }
   Timer { id: hoverTimer; interval: cfg.openDelay; onTriggered: { if (cornerHover.hovered && !root.dragging) root.reveal(); } }
@@ -684,7 +685,7 @@ PanelWindow {
       spacing: 6
       Text {
         text: dotRoot.label; textFormat: Text.PlainText
-        width: dotRoot.width - (dotRoot.specKey !== "" ? 192 : 150)
+        width: Math.max(40, dotRoot.width - (dotRoot.specKey !== "" ? 192 : 150))
         color: Color.foreground
         font.family: Style.fontFamily; font.pixelSize: 11
         anchors.verticalCenter: parent.verticalCenter

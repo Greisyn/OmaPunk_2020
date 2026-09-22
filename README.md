@@ -30,9 +30,9 @@ omarchy plugin add https://github.com/Greisyn/OmaPunk_2020.git --enable
   the workspace; drop near a corner to snap/lock it there, else it floats free
   (card opens beside it). Settings has a lock switch to disable dragging, and
   corner buttons to snap it back. Placement persists in the prefs JSON.
-- **Logo**: `CyberTheme.png` from `~/Pictures` at the top of the card and
-  settings panel (`logo.png`); same art as anchor + bar symbol
-  (`anchor-icon.png`). To swap art later, replace those two files and run
+- **Logo**: `logo.png` at the top of the card and
+  settings panel (same art as anchor + bar symbol
+  (`anchor-icon.png`)). To swap art later, replace those two files and run
   `omarchy-shell shell rescanPlugins`.
 
 ## Files
