@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "local",
   "license": "MIT",
-  "description": "Minimal floating sheet shell with CyberTheme logo header. Bar icon toggles the card. Theme-aware (Color/Style).",
+  "description": "Bar-icon-driven Cyberpunk 2020 character sheet editor. Edits like the PDF, exports plain text for LLM roleplay. Stays open until X closes it (pin blocks closing). Theme-aware.",
   "kinds": ["service", "bar-widget"],
   "keepLoaded": true,
   "entryPoints": {
@@ -14,7 +14,7 @@
   },
   "barWidget": {
     "displayName": "Cyberpunk Sheet",
-    "description": "Bar icon toggles the floating cyberpunk sheet.",
+    "description": "Bar icon toggles the character sheet card. Right-click for placement + output settings. Card stays open until X (pin blocks closing).",
     "category": "Utilities",
     "allowMultiple": false,
     "defaultSection": "right",

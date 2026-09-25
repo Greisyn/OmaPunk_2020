@@ -2,8 +2,13 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-// Anchor + card prefs: floating-square placement, card size, motion timing
-// and sheet output paths.
+// UI prefs + output path. Bar-icon-driven sheet card (no floating anchor):
+// corner/margin/size place the card, or drag the card header to float it
+// anywhere (placeMode free + posX/posY persist the drop). keepOpen pins it
+// so X cannot close.
+// Legacy anchor keys (showAnchor, anchorMode, freeX/freeY, anchorLocked,
+// buttonSize, openDelay, closeDelay) are still read/written so old prefs
+// files keep loading, but nothing on screen uses them anymore.
 // Persists to ~/.config/omarchy/local.cyberpunk-sheet.json
 Item {
   id: root
@@ -12,27 +17,35 @@ Item {
   readonly property string home: Quickshell.env("HOME")
   readonly property string settingsPath: home + "/.config/omarchy/local.cyberpunk-sheet.json"
 
-  // floating square anchor (hideable; the bar icon can open the card instead)
-  property bool showAnchor: true
-  // anchor placement: corner snap or free-floating (drag the square)
+  // legacy: floating square anchor (removed — bar icon only now).
+  // Kept so existing prefs JSON still parses; always written as false.
+  property bool showAnchor: false
+  // legacy anchor placement (unused)
   property string anchorMode: "corner" // corner | free
-  // corner snap: topLeft | topRight | bottomLeft | bottomRight
+  // card corner snap: topLeft | topRight | bottomLeft | bottomRight
   property string corner: "topRight"
   property int cornerMarginX: 24
   property int cornerMarginY: 24
-  // free-floating square center, as screen fractions (0..1)
+  // card placement: corner snap or free (drag the card header anywhere;
+  // drop position persists as card top-left screen fractions 0..1)
+  property string placeMode: "corner" // corner | free
+  property real posX: 0.55
+  property real posY: 0.12
+  // legacy free-floating square center, as screen fractions (0..1, unused)
   property real freeX: 0.90
   property real freeY: 0.12
-  // lock: disables dragging the square (corner buttons still snap it)
+  // legacy lock (unused)
   property bool anchorLocked: false
+  // legacy square size (unused)
   property int buttonSize: 52
   property int sideWidth: 560
   property int sideHeight: 660
+  // pin: X / Esc / bar-toggle / IPC-hide cannot close while true
   property bool keepOpen: false
 
-  // --- Timing & motion ---
-  property int openDelay: 300    // hover dwell on the square before reveal (ms)
-  property int closeDelay: 900   // leave before collapse (ms)
+  // --- Timing & motion (open/close dwell delays are legacy, unused) ---
+  property int openDelay: 300
+  property int closeDelay: 900
   property int motionDuration: 240
   property bool reducedMotion: false
 
@@ -46,7 +59,8 @@ Item {
 
   function defaults() {
     return {
-      showAnchor: true, anchorMode: "corner", corner: "topRight",
+      showAnchor: false, anchorMode: "corner", corner: "topRight",
+      placeMode: "corner", posX: 0.55, posY: 0.12,
       cornerMarginX: 24, cornerMarginY: 24,
       freeX: 0.90, freeY: 0.12, anchorLocked: false,
       buttonSize: 52, sideWidth: 560, sideHeight: 660, keepOpen: false,
@@ -68,6 +82,9 @@ Item {
     try { p = JSON.parse(String(raw || "{}")); } catch (e) { p = {}; }
     if (["topLeft", "topRight", "bottomLeft", "bottomRight"].indexOf(p.corner) >= 0)
       d.corner = p.corner;
+    if (p.placeMode === "free" || p.placeMode === "corner") d.placeMode = p.placeMode;
+    if (isFinite(Number(p.posX))) d.posX = Math.max(0, Math.min(1, Number(p.posX)));
+    if (isFinite(Number(p.posY))) d.posY = Math.max(0, Math.min(1, Number(p.posY)));
     if (p.anchorMode === "free" || p.anchorMode === "corner") d.anchorMode = p.anchorMode;
     if (typeof p.showAnchor === "boolean") d.showAnchor = p.showAnchor;
     if (typeof p.anchorLocked === "boolean") d.anchorLocked = p.anchorLocked;
@@ -85,11 +102,13 @@ Item {
       if (typeof p[k] === "boolean") d[k] = p[k];
     });
 
-    root.showAnchor = d.showAnchor;
-    root.anchorMode = d.anchorMode;
+    root.showAnchor = false; // anchor removed: bar icon only, always
+    root.anchorMode = "corner"; // anchor removed: card always corner-snapped
     root.freeX = d.freeX; root.freeY = d.freeY;
     root.anchorLocked = d.anchorLocked;
     root.corner = d.corner;
+    root.placeMode = d.placeMode;
+    root.posX = d.posX; root.posY = d.posY;
     root.cornerMarginX = d.cornerMarginX; root.cornerMarginY = d.cornerMarginY;
     root.buttonSize = d.buttonSize;
     root.sideWidth = d.sideWidth; root.sideHeight = d.sideHeight;
@@ -106,6 +125,7 @@ Item {
   function snapshot() {
     return {
       showAnchor: root.showAnchor, anchorMode: root.anchorMode, corner: root.corner,
+      placeMode: root.placeMode, posX: root.posX, posY: root.posY,
       cornerMarginX: root.cornerMarginX, cornerMarginY: root.cornerMarginY,
       freeX: root.freeX, freeY: root.freeY, anchorLocked: root.anchorLocked,
       buttonSize: root.buttonSize,

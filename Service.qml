@@ -6,8 +6,8 @@ import "CyberSheet.js" as CyberSheet
 
 // Owns Cyberpunk 2020 character data, renders plain text (same sections as the
 // CP2020 Character Sheet Ultimate Edition PDF), exports to the user-chosen
-// output path, mounts one corner-anchored SheetWindow per screen.
-// Theme-awareness lives in the windows (Color/Style).
+// output path, mounts one SheetWindow card per screen (bar-icon-driven, no
+// floating anchor). Theme-awareness lives in the windows (Color/Style).
 Item {
   id: root
   property var shell: null
