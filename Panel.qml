@@ -175,19 +175,19 @@ Panel {
         Row {
           width: parent.width; spacing: Style.spacing.lg
           Column { width: (parent.width - parent.spacing) / 2; spacing: 2
-            RowLabel { text: "Width (" + config.sideWidth + ")"; width: parent.width }
+            RowLabel { text: "Width (" + config.sideWidth + ", min 600)"; width: parent.width }
             PanelSlider {
               width: parent.width
-              minimum: 340; maximum: 700; step: 10
+              minimum: 600; maximum: 700; step: 10
               value: config.sideWidth
               onMoved: function(v) { config.set("sideWidth", Math.round(v)); }
             }
           }
           Column { width: (parent.width - parent.spacing) / 2; spacing: 2
-            RowLabel { text: "Height (" + config.sideHeight + ")"; width: parent.width }
+            RowLabel { text: "Height (" + config.sideHeight + ", min 550)"; width: parent.width }
             PanelSlider {
               width: parent.width
-              minimum: 300; maximum: 1000; step: 10
+              minimum: 550; maximum: 1000; step: 10
               value: config.sideHeight
               onMoved: function(v) { config.set("sideHeight", Math.round(v)); }
             }

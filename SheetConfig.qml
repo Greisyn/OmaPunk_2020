@@ -38,7 +38,8 @@ Item {
   property bool anchorLocked: false
   // legacy square size (unused)
   property int buttonSize: 52
-  property int sideWidth: 560
+  // card size (minimum 600 x 550, same as the sibling sheets)
+  property int sideWidth: 600
   property int sideHeight: 660
   // pin: X / Esc / bar-toggle / IPC-hide cannot close while true
   property bool keepOpen: false
@@ -63,7 +64,7 @@ Item {
       placeMode: "corner", posX: 0.55, posY: 0.12,
       cornerMarginX: 24, cornerMarginY: 24,
       freeX: 0.90, freeY: 0.12, anchorLocked: false,
-      buttonSize: 52, sideWidth: 560, sideHeight: 660, keepOpen: false,
+      buttonSize: 52, sideWidth: 600, sideHeight: 660, keepOpen: false,
       openDelay: 300, closeDelay: 900,
       motionDuration: 240, reducedMotion: false,
       outputDir: root.home + "/Pictures", importPath: ""
@@ -93,8 +94,8 @@ Item {
     d.buttonSize = root.clampNum(p.buttonSize, 40, 96, d.buttonSize);
     d.cornerMarginX = root.clampNum(p.cornerMarginX, 0, 200, d.cornerMarginX);
     d.cornerMarginY = root.clampNum(p.cornerMarginY, 0, 200, d.cornerMarginY);
-    d.sideWidth = root.clampNum(p.sideWidth, 340, 700, d.sideWidth);
-    d.sideHeight = root.clampNum(p.sideHeight, 300, 1000, d.sideHeight);
+    d.sideWidth = root.clampNum(p.sideWidth, 600, 700, d.sideWidth);
+    d.sideHeight = root.clampNum(p.sideHeight, 550, 1000, d.sideHeight);
     d.openDelay = root.clampNum(p.openDelay, 0, 1500, d.openDelay);
     d.closeDelay = root.clampNum(p.closeDelay, 250, 3000, d.closeDelay);
     d.motionDuration = root.clampNum(p.motionDuration, 0, 600, d.motionDuration);
